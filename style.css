@@ -17,3 +17,6 @@ input {
     height: 50px;
     font-size: 3rem;
 }
+button {
+    display: none;
+}
