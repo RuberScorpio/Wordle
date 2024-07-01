@@ -1,4 +1,4 @@
-let parola="cream";
+let parola="";
 let wordInputArray = [
     [input1, input2, input3, input4, input5],
     [input6, input7, input8, input9, input10],
@@ -8,7 +8,14 @@ let wordInputArray = [
 ]
 
 window.onload = () => {
-    wordInputArray[0][0].focus();
+    fetch("words.json")
+    .then(response => response.json())
+    .then(data => {
+        parola = data[Math.floor(Math.random() * 100)]
+        console.log("data", parola)
+        document.body.style.display = "block";
+        wordInputArray[0][0].focus();
+    });
 }
 
 document.addEventListener("keydown", function(event) {
@@ -19,13 +26,13 @@ document.addEventListener("keydown", function(event) {
 })
 
 function onInput(e) {
-    if (e.inputType == "deleteContentBackward" || e.inputType == "0") {
-        return;
-    } else { 
+    if (/^[a-zA-Z]+$/.test(e.target.value)) {
         if (e.target.nextElementSibling) {
             e.target.nextElementSibling.focus();
         }
         e.target.value=e.target.value.slice(-1);
+    } else {
+        e.target.value = "";
     }
 }
 
